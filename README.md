@@ -1,130 +1,148 @@
-# Kalender — Chrome Extension (Google Calendar 12-Month View)
+# 📅 Kalender
 
-Kalender is a Chrome Extension that displays your Google Calendar events in a **12-month column layout** (Jan–Dec), with **day rows (1..31)**. It supports **multiple calendars**, **unique colors per calendar**, and **multi-day events that span multiple rows**. This project was developed with the assistance of AI tools.
+**Kalender** is a Chrome extension that displays your Google Calendar in a **12-month column view**, making it easy to review an entire year at once.
 
-
-## Features
-- Google Calendar integration (read-only)
-- 12 months shown at once (months as columns)
-- Horizontal scroll when all months do not fit on screen
-- Rows 1..31 per month with day + weekday on one line (invalid dates empty)
-- Weekend cells (Sa/Su) are shaded
-- Multiple calendars selectable
-- Per-calendar colors + legend
-- Multi-day events render as vertical blocks with the title shown once (split across months when needed)
-- Overlapping events render in up to three narrow columns; extra events show as "..."
-- Hover events to see details (EU date/time format)
-- Event blocks allow internal scroll when text is long
-- Export PDF (via print dialog): Jan–Jun on one A4 page, Jul–Dec on a second page
-- View toggle: switch between columns and rows
-- Transposed view: wider day columns, labels on top, dynamic row heights based on overlapping events
-- Year selection
-- Collapsible sidebar with floating expand button
+It’s designed for **long-term planning** — family schedules, vacations, business roadmaps, and project timelines — where seeing the *big picture* matters.
 
 ---
 
-## AI Assistance
+## ✨ Why Kalender?
 
-This repository includes an `AGENTS.md` file containing guidance for AI coding agents.
-It is not required reading for contributors but helps maintain architectural consistency.
+Most calendar apps focus on days or weeks. Kalender focuses on the **year**.
+
+With one glance, you can:
+- Review all 12 months at once
+- Spot long gaps or busy periods
+- Track multi-day and long-running events
+- Compare multiple calendars visually
+
+This makes Kalender especially useful for:
+- Family planning
+- Travel and vacation planning
+- Business and product roadmaps
+- Annual reviews and forecasting
 
 ---
 
-## Development Setup
+## 🧩 Features
 
-### 1) Create a Google Cloud Project + OAuth Client (Chrome Extension)
-1. Go to Google Cloud Console → APIs & Services.
-2. Create (or select) a project.
-3. Enable the **Google Calendar API**.
-4. Configure **OAuth consent screen** (External is fine for testing; add yourself as a test user if needed).
-5. Create **OAuth client ID**:
-   - Application type: **Chrome Extension**
-   - Extension ID: (you can add later once you load the unpacked extension and see the generated ID)
+- 📆 **12-month overview**  
+  All months shown side-by-side in a single view
 
-> Note: For `chrome.identity`, Google typically expects the extension ID to be registered for the OAuth client.
+- 📅 **Day-row layout (1–31)**  
+  Each day of the month is a row, making patterns easy to spot
 
-### 2) Put OAuth Client ID into the extension
-Open `manifest.json` and replace:
-- `oauth2.client_id` with your OAuth client ID (ends with `.apps.googleusercontent.com`)
+- 🎨 **Multiple calendars with colors**  
+  Display multiple Google Calendars at once, each color-coded
 
-### 3) Load extension in Chrome
-1. `chrome://extensions`
+- ➡️ **Multi-day event support**  
+  Events spanning multiple days are rendered across days (and months)
+
+- 🔐 **Secure Google authentication**  
+  Uses Chrome’s built-in OAuth (`chrome.identity`)  
+  Read-only access to calendar data
+
+- ⚡ **Fast, lightweight, no server**  
+  All data stays local in your browser
+
+---
+
+## 🖼️ Screenshots
+
+tbd: _Add screenshots to `docs/screenshots/` and reference them here._
+
+```md
+![12-month overview](docs/screenshots/overview.png)
+![Calendar selection](docs/screenshots/calendars.png)
+```
+
+---
+
+## 🚀 Installation (Development / Unpacked)
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/YOUR_USERNAME/kalender.git
+cd kalender
+```
+
+### 2. Load the extension in Chrome
+1. Open `chrome://extensions`
 2. Enable **Developer mode**
 3. Click **Load unpacked**
-4. Select the repo folder (the one containing `manifest.json`)
+4. Select the project folder
 
-After loading, copy your **Extension ID** and ensure it matches the one associated with your OAuth client in Google Cloud Console.
-
-### 4) Run it
-- Click the extension icon → it opens the Kalender UI page
-- Click **Sign in**
-- Choose a year and layout
-- Select calendars (left sidebar)
-- Click **Refresh**
+### 3. Sign in
+- Click the Kalender icon
+- Sign in with Google
+- Select the calendars you want to display
 
 ---
 
-## Permissions & Auth Notes
+## 🔐 Privacy & Permissions
 
-Kalender uses Chrome’s built-in OAuth flow:
-- `chrome.identity.getAuthToken({ interactive: true })`
+Kalender:
+- Uses **read-only** access to Google Calendar
+- Does **not** store event data on any external server
+- Stores only user preferences (e.g. selected calendars) via Chrome storage
 
-This is the closest you can get to “use current Chrome session” in an extension:
-- If you’re already signed into Chrome, the consent/sign-in is usually fast.
-- Extensions cannot directly reuse Google cookies to call Google APIs.
-
-Scopes:
-- `https://www.googleapis.com/auth/calendar.readonly`
+See the full [Privacy Policy](docs/privacy.md).
 
 ---
 
-## Project Structure
-
-- `manifest.json` — MV3 manifest + OAuth config
-- `src/background.js` — service worker (token + API proxy)
-- `src/ui/index.html` — main UI
-- `src/ui/app.js` — rendering + interactions
-- `src/ui/styles.css` — layout styles
-- `src/lib/googleApi.js` — Calendar API calls
-- `src/lib/normalizeEvents.js` — normalize events into day spans
-- `src/lib/storage.js` — settings persistence
-
----
-
-## Troubleshooting
-
-### “OAuth client was not found” / “redirect_uri_mismatch”
-- Make sure you created the OAuth client as **Chrome Extension**
-- Ensure the OAuth client is associated with your **Extension ID**
-- Reload the extension after changes
-
-### 401 / invalid token
-- Kalender clears the cached token and retries once interactively.
-
-### No events showing
-- Ensure calendars are selected
-- Confirm you have events in the current year
-- Try Refresh
-
----
-
-## Security
-- Read-only scope
-- No tokens stored manually; uses Chrome identity token cache
-- Minimal permissions
-
----
-
-## Contributions Welcome 🎨
+## 🎨 Design Contributions Welcome
 
 Kalender is functionally solid, but **design and UX are the areas where help is most needed**.
 
-If you enjoy:
-- Visual design
-- Layout systems
-- Data-dense UI
-- Making complex information feel simple
+We especially welcome contributions related to:
+- Visual clarity of the 12-month grid
+- Multi-day event visualization
+- Color systems and accessibility
+- App icon and visual identity
 
-…your contributions would be especially valuable.
+Design-only contributions (mockups, sketches, UX ideas) are absolutely welcome.
 
-Design improvements, mockups, and UX suggestions are very welcome — even without code.
+👉 See open **design-labeled issues** to get started.
+
+---
+
+## 🤝 Contributing
+
+Contributions of all kinds are welcome:
+- Design & UX
+- Frontend / CSS
+- Performance improvements
+- Bug fixes
+- Documentation
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidance.
+
+---
+
+## 🧠 AI Assistance
+
+This repository includes an `AGENTS.md` file containing guidance for AI coding agents.
+It is **not required reading** for contributors, but helps maintain architectural consistency when using AI tools.
+
+---
+
+## 📄 License
+
+MIT License — free to use, modify, and distribute.  
+See [LICENSE](LICENSE).
+
+---
+
+## 🌱 Roadmap (high level)
+
+- Improve visual clarity for dense calendars
+- Better visual treatment for long-running events
+- Refined icon and branding
+- Optional settings & customization
+
+---
+
+## 🙏 Acknowledgements
+
+Kalender was developed with the assistance of AI tools.
+Community contributions are welcome and encouraged.
