@@ -49,12 +49,9 @@ This makes Kalender especially useful for:
 
 ## 🖼️ Screenshots
 
-tbd: _Add screenshots to `docs/screenshots/` and reference them here._
-
-```md
-![12-month overview](docs/screenshots/overview.png)
-![Calendar selection](docs/screenshots/calendars.png)
-```
+![12-month overview](docs/screenshots/kalender-chrome_fullscreen.png)
+![pdf export or print fits on two pages](docs/screenshots/kalender-chrome_printview.png)
+![transposed view - months as rows](docs/screenshots/kalender-chrome_transposedview.png)
 
 ---
 
