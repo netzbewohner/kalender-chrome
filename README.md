@@ -59,8 +59,7 @@ This makes Kalender especially useful for:
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/kalender.git
-cd kalender
+git clone https://github.com/netzbewohner/kalender-chrome.git
 ```
 
 ### 2. Load the extension in Chrome
@@ -68,6 +67,8 @@ cd kalender
 2. Enable **Developer mode**
 3. Click **Load unpacked**
 4. Select the project folder
+
+See ![Official Chrome documentation](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked ) if you need more information. 
 
 ### 3. Sign in
 - Click the Kalender icon
