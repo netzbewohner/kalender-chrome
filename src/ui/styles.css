@@ -1,0 +1,460 @@
+:root {
+  --border: #e5e7eb;
+  --bg: #ffffff;
+  --muted: #6b7280;
+  --text: #111827;
+  --month-col: 180px;
+  --row-height: 38px;
+  --header-height: 36px;
+  --label-gutter: 44px;
+  --event-inset: 4px;
+  --day-col: 68px;
+  --label-col: 80px;
+  --label-gutter-vertical: 18px;
+  --event-block-height: 30px;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  height: 100vh;
+}
+
+.sidebar {
+  border-right: 1px solid var(--border);
+  padding: 10px 12px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.brand h1 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.toggle-fab {
+  align-self: flex-start;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--text);
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+}
+
+.meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.controls {
+  display: grid;
+  gap: 8px;
+}
+
+.control {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.helper {
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.helper-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+.link-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.link-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--muted);
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.link-btn.active {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.buttons {
+  display: grid;
+  gap: 6px;
+}
+
+.buttons-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.sidebar button {
+  border-radius: 999px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.status-pill {
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #ffffff;
+}
+
+.sidebar-section h2 {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+.main {
+  padding: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cal-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.expand-fab {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: none;
+  z-index: 8;
+}
+
+.app.sidebar-collapsed {
+  grid-template-columns: 0 1fr;
+}
+
+.app.sidebar-collapsed .sidebar {
+  padding: 0;
+  gap: 0;
+  border-right: none;
+}
+
+.app.sidebar-collapsed .sidebar * {
+  display: none;
+}
+
+.app.sidebar-collapsed .expand-fab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+}
+
+/* 12-month grid */
+.grid {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: auto;
+  height: 100%;
+}
+
+.grid-stack {
+  position: relative;
+  min-height: calc(var(--header-height) + (31 * var(--row-height)));
+}
+
+/* header row + day rows */
+.grid-inner {
+  display: grid;
+  grid-template-columns: repeat(var(--month-count), var(--month-col));
+  grid-template-rows: var(--header-height) repeat(31, var(--row-height));
+  min-width: calc(var(--month-count) * var(--month-col));
+  position: relative;
+  z-index: 2;
+}
+
+.grid-events {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--month-count), var(--month-col));
+  grid-template-rows: var(--header-height) repeat(31, var(--row-height));
+  min-width: calc(var(--month-count) * var(--month-col));
+  pointer-events: none;
+  z-index: 4;
+}
+
+.grid-stack.transpose {
+  min-height: calc(var(--month-count) * var(--row-height));
+}
+
+.grid-stack.transpose .grid-inner,
+.grid-stack.transpose .grid-events {
+  grid-template-columns: var(--label-col) repeat(var(--day-count), var(--day-col));
+  grid-template-rows: repeat(var(--month-count), var(--row-height));
+  min-width: calc(var(--label-col) + (var(--day-count) * var(--day-col)));
+}
+
+.cell {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 6px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.cell.header {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 6;
+  font-weight: 600;
+  height: var(--header-height);
+}
+
+.grid-stack.transpose .cell.header {
+  position: sticky;
+  top: auto;
+  left: 0;
+  height: auto;
+  z-index: 7;
+}
+
+.month-label {
+  text-align: left;
+}
+
+.day-cell {
+  height: var(--row-height);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.grid-stack.transpose .day-cell {
+  height: auto;
+  align-items: flex-start;
+  padding-top: 4px;
+}
+
+.grid-stack.transpose .cell {
+  height: auto;
+  align-self: stretch;
+}
+
+/* multi-day spanning blocks */
+.event-block {
+  --lane-index: 0;
+  --lane-count: 1;
+  --event-gap: 4px;
+  display: block;
+  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 8px;
+  color: #0b0f19;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  white-space: normal;
+  word-break: break-word;
+  overflow: auto;
+  height: calc(100% - (2 * var(--event-inset)));
+  max-height: calc(100% - (2 * var(--event-inset)));
+  box-sizing: border-box;
+  z-index: 4;
+  align-self: stretch;
+  margin: 0 4px;
+  width: calc((100% - var(--label-gutter) - ((var(--lane-count) - 1) * var(--event-gap))) / var(--lane-count));
+  margin-left: calc(
+    var(--label-gutter) +
+      (var(--lane-index) *
+        (
+          (100% - var(--label-gutter) - ((var(--lane-count) - 1) * var(--event-gap))) /
+            var(--lane-count) +
+            var(--event-gap)
+        ))
+  );
+  transform: translateY(var(--event-inset));
+  pointer-events: auto;
+}
+
+.grid-stack.transpose .event-block {
+  width: calc(100% - 8px);
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  height: var(--event-block-height);
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: calc(var(--label-gutter-vertical) + var(--event-inset) + (var(--lane-index) * (var(--event-block-height) + var(--event-gap))));
+  transform: translateY(0);
+}
+
+.event-overflow {
+  background: #f3f4f6;
+  border-style: dashed;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* visually dim invalid days */
+.invalid {
+  background: #fcfcfc;
+  color: #c7cdd8;
+}
+
+.day-label {
+  font-size: 12px;
+  color: var(--muted);
+  position: relative;
+  z-index: 5;
+}
+
+.weekend {
+  background: #f3f4f6;
+}
+
+.print-area {
+  display: none;
+}
+
+.print-grid {
+  margin-bottom: 12px;
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  .app {
+    display: none;
+  }
+
+  .print-area {
+    display: block;
+    --month-col: 1fr;
+    --row-height: 22px;
+    --header-height: 22px;
+    --label-gutter: 28px;
+    --day-col: minmax(0, 1fr);
+    --label-col: 56px;
+    --label-gutter-vertical: 12px;
+  }
+
+  .print-grid {
+    border: 1px solid var(--border);
+    overflow: visible;
+    height: auto;
+  }
+
+  .print-grid .grid-stack {
+    width: 100%;
+  }
+
+  .print-grid .grid-stack:not(.transpose) .grid-inner,
+  .print-grid .grid-stack:not(.transpose) .grid-events {
+    min-width: 0;
+    width: 100%;
+    grid-template-columns: repeat(var(--month-count), minmax(0, 1fr));
+  }
+
+  .print-grid .grid-stack.transpose .grid-inner,
+  .print-grid .grid-stack.transpose .grid-events {
+    min-width: 0;
+    width: 100%;
+    grid-template-columns: var(--label-col) repeat(var(--day-count), minmax(0, 1fr));
+  }
+
+  .print-grid .event-block {
+    font-size: 10px;
+    line-height: 1.2;
+    padding: 3px 4px;
+  }
+
+  .print-grid .day-label {
+    font-size: 10px;
+  }
+
+  .print-page {
+    break-after: page;
+  }
+}

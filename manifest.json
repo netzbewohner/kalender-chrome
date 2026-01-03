@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Kalender",
+  "version": "0.1.0",
+  "description": "12-month column view for Google Calendar events.",
+  "action": {
+    "default_title": "Kalender"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "permissions": ["identity", "storage"],
+  "host_permissions": ["https://www.googleapis.com/*"],
+  "oauth2": {
+    "client_id": "197719213672-rcbv6o5p6ea2ab578psq645e35u4bbel.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/calendar.readonly"]
+  },
+  "icons": {
+    "16": "src/assets/icon16.png",
+    "32": "src/assets/icon32.png",
+    "48": "src/assets/icon48.png",
+    "128": "src/assets/icon128.png"
+  }
+}

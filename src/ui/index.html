@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Kalender</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <button id="toggleSidebar" class="toggle-fab" aria-expanded="true" title="Collapse sidebar">
+            <<
+          </button>
+          <h1>Kalender</h1>
+        </div>
+
+        <div class="helper">
+          <div class="helper-title">Quick start</div>
+          <div>Sign in, choose a year, select calendars, then refresh.</div>
+        </div>
+
+        <div class="buttons buttons-row">
+          <button id="signInBtn">Sign in</button>
+          <button id="refreshBtn" disabled>Refresh</button>
+          <button id="printBtn">Export PDF</button>
+        </div>
+
+        <div class="controls">
+          <label class="control">
+            <span>Year</span>
+            <div id="yearLinks" class="link-group"></div>
+            <div class="hint">Pick the year to visualize.</div>
+          </label>
+          <label class="control">
+            <span>Layout</span>
+            <div id="viewLinks" class="link-group">
+              <button type="button" class="link-btn" data-value="columns">Columns</button>
+              <button type="button" class="link-btn" data-value="rows">Rows</button>
+            </div>
+            <div class="hint">Switch layout for wider days or taller months.</div>
+          </label>
+        </div>
+
+        <div class="sidebar-section">
+          <h2>Selected calendars</h2>
+          <div class="hint">Colors match events in the grid.</div>
+          <div id="legend" class="legend"></div>
+        </div>
+
+        <div class="sidebar-section">
+          <h2>Calendars</h2>
+          <div class="hint">Toggle calendars to show or hide their events.</div>
+          <div id="calList" class="cal-list"></div>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="status-pill" id="status">Not signed in</div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <button id="expandSidebar" class="expand-fab toggle-fab" aria-expanded="false" title="Expand sidebar">
+          >>
+        </button>
+        <div id="grid" class="grid"></div>
+      </main>
+    </div>
+
+    <div id="printArea" class="print-area"></div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
