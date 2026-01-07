@@ -8,6 +8,7 @@
 # Build / temp
 node_modules/
 dist/
+mynotes/
 
 # Chrome extension local artifacts
 *.pem

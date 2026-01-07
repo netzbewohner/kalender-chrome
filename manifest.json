@@ -3,6 +3,7 @@
   "name": "Kalender",
   "version": "1.0.0",
   "description": "12-month column view for Google Calendar events.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuces2ztrnX9uqjyrieIGR/341ascUdSJ5SHTKmrKdzDTppCxaBdahPUVS8O/kv6+IUj2LJvskoLXDsw2VGbIMvVlAQlE3jKEPyRMVSLjLlP+YfQkpnDLZMuC5BppnAFPycPDiEfUvrQohqZU4+S8R0U2pm1nXlRAgJGjwcufWMEPGBtTex3jInFlkD+7qLuskGGJks/8NsYIwFy2zJ/pEMTlzi4FfUkUQXMAeaIPidsm7R4CjBJhx/uhDQeOT/RQr1THOhmVhoqxo0Uc0TRup6rnF9M6hX4uy6VRbvasRL89poQzzx1SXWMJyw5tvtIf4omnGHUT7D0CW8ucCmrVTQIDAQAB",
   "action": {
     "default_title": "Kalender"
   },
